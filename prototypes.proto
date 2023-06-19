@@ -11,15 +11,16 @@ message PubMeta {
 }
 
 message MessageData {
-  string type = 1;
-  string content = 2;
-  string senderPubKey = 3;
-  string receiverPubKey = 4;
+  string conversationType = 1; // 一对一、私聊、Topic、Pub/Sub
+  string messageType = 2; // text、image、video
+  string content = 3;
+  string senderPubKey = 4;
+  string receiverPubKey = 5;
   int32 createdAt = 101;
 }
 
 message MessageWrapper {
-  string type = 1;
+  string conversationType = 1;
   string data = 2;
   string senderPubKey = 3;
   string receiverPubKey = 4;
