@@ -16,7 +16,7 @@ message MessageData {
   string content = 3;
   string senderPubKey = 4;
   string receiverPubKey = 5;
-  int32 createdAt = 101;
+  int64 createdAt = 101;
 }
 
 message MessageWrapper {
