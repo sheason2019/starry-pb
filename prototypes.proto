@@ -1,0 +1,27 @@
+syntax = "proto3";
+package pubMeta;
+
+option go_package = "./;prototypes";
+
+message PubMeta {
+  string pubKeyPem = 1;
+  string username = 2;
+  string avatarUrl = 3;
+  map<string, string> extra = 4;
+}
+
+message MessageData {
+  string type = 1;
+  string content = 2;
+  string senderPubKey = 3;
+  string receiverPubKey = 4;
+  int32 createdAt = 101;
+}
+
+message MessageWrapper {
+  string type = 1;
+  string data = 2;
+  string senderPubKey = 3;
+  string receiverPubKey = 4;
+  string signature = 5;
+}
