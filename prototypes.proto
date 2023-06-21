@@ -26,3 +26,26 @@ message MessageWrapper {
   string receiverPubKey = 4;
   string signature = 5;
 }
+
+message Information {  
+  string sourceName = 1; // 源名称
+
+  PubMetaModuleInfo pubMetaModuleInfo = 100; // PubMeta 模块: 对公开 PubMeta 的上传和拉取
+  ConnectModuleInfo connectModuleInfo = 101; // Connect 模块
+  PubMetaHostModuleInfo pubMetaHostModuleInfo = 102; // PubMetaHost 模块: 将 PubMeta 以 AES 加密数据的形式持久化存储到服务器
+}
+
+message ConnectModuleInfo {
+  bool active = 1;
+  string endpoint = 2;
+}
+
+message PubMetaModuleInfo {
+  bool active = 1;
+  string endpoint = 2;
+}
+
+message PubMetaHostModuleInfo {
+  bool active = 1;
+  string endpoint = 2;
+}
