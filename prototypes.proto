@@ -4,35 +4,38 @@ package pubMeta;
 option go_package = "./;prototypes";
 
 message PubMeta {
-  string pubKeyPem = 1;
+  string pub_key_pem = 1;
   string username = 2;
-  string avatarUrl = 3;
+  string avatar_url = 3;
   map<string, string> extra = 4;
+
+  // 私钥字符串，仅在导出Metadata时使用
+  string priv_key_pem = 1001;
 }
 
 message MessageData {
-  string conversationType = 1; // 一对一、私聊、Topic、Pub/Sub
-  string messageType = 2; // text、image、video
+  string conversation_type = 1; // 一对一、私聊、Topic、Pub/Sub
+  string message_type = 2; // text、image、video
   string content = 3;
-  string senderPubKey = 4;
-  string receiverPubKey = 5;
-  int64 createdAt = 101;
+  string sender_pub_key = 4;
+  string receiver_pub_key = 5;
+  int64 created_at = 101;
 }
 
 message MessageWrapper {
-  string conversationType = 1;
+  string conversation_type = 1;
   string data = 2;
-  string senderPubKey = 3;
-  string receiverPubKey = 4;
+  string sender_pub_key = 3;
+  string receiver_pub_key = 4;
   string signature = 5;
 }
 
 message Information {  
   string sourceName = 1; // 源名称
 
-  PubMetaModuleInfo pubMetaModuleInfo = 100; // PubMeta 模块: 对公开 PubMeta 的上传和拉取
-  ConnectModuleInfo connectModuleInfo = 101; // Connect 模块
-  PubMetaHostModuleInfo pubMetaHostModuleInfo = 102; // PubMetaHost 模块: 将 PubMeta 以 AES 加密数据的形式持久化存储到服务器
+  PubMetaModuleInfo pub_meta_module_info = 100; // PubMeta 模块: 对公开 PubMeta 的上传和拉取
+  ConnectModuleInfo connect_module_info = 101; // Connect 模块
+  PubMetaHostModuleInfo pub_meta_host_module_info = 102; // PubMetaHost 模块: 将 PubMeta 以 AES 加密数据的形式持久化存储到服务器
 }
 
 message ConnectModuleInfo {
