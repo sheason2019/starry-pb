@@ -8,10 +8,23 @@ message PubMeta {
   string username = 2;
   string avatar_url = 3;
   map<string, string> extra = 4;
-  int64 created_at = 5;
+  int32 created_at = 5;
 
   // 私钥字符串，仅在导出Metadata时使用
   string priv_key_pem = 1001;
+}
+
+message VerifyPackage {
+  string verify_token = 1;
+  string origin = 2;
+}
+
+// 通用身份鉴权结构体
+message IdentifySignatureCompose {
+  VerifyPackage verify_package = 1;
+  string verify_package_sig = 2;
+  PubMeta pub_meta = 3;
+  string pub_meta_sig = 4;
 }
 
 message MessageData {
@@ -20,7 +33,7 @@ message MessageData {
   string content = 3;
   string sender_pub_key = 4;
   string receiver_pub_key = 5;
-  int64 created_at = 101;
+  int32 created_at = 101;
 }
 
 message MessageWrapper {
