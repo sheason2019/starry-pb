@@ -1,5 +1,5 @@
 syntax = "proto3";
-package pubMeta;
+package starry;
 
 option go_package = "./;prototypes";
 
