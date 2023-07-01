@@ -1,7 +1,7 @@
 syntax = "proto3";
 package starry;
 
-option csharp_namespace = "StarryCore";
+option go_package = "./;prototypes";
 
 // Core 四大能力
 // 1. PubMeta 维护
@@ -23,10 +23,9 @@ message PubMeta {
 
 // 通用身份鉴权结构体
 message IdentifySignatureCompose {
-  string verify_token = 1;
-  bytes verify_token_sig = 2;
-  PubMeta pub_meta = 3;
-  bytes pub_meta_sig = 4;
+  PubMeta pub_meta = 1;
+  bytes pub_meta_sig = 2;
+  bytes verify_token_sig = 3;
 }
 
 // 通用Connect传输内容
@@ -60,9 +59,11 @@ message Information {
   string name = 1;
 }
 
-service StarryCore {
+service StarrySource {
   rpc GetInformation(VoidMessage) returns (Information);
   rpc Connect(stream ConnectMessage) returns (stream ConnectMessage);
 }
 
-
+service StarryFederation {
+  rpc Join(VoidMessage) returns (VoidMessage);
+}
