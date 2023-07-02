@@ -65,10 +65,18 @@ message GetPubMetaResp {
 
 message PostPubMetaResp {}
 
+message GetPubMetaByHashReq {
+  repeated string hashList = 1;
+}
+message GetPubMetaByHashResp {
+  repeated IdentifySignatureCompose iscs = 1;
+}
+
 service StarrySource {
   rpc GetInformation(VoidMessage) returns (Information);
   rpc Connect(stream ConnectMessage) returns (stream ConnectMessage);
   rpc GetPubMeta(VoidMessage) returns (GetPubMetaResp);
+  rpc GetPubMetaByHash(GetPubMetaByHashReq) returns (GetPubMetaByHashResp);
   rpc PostPubMeta(IdentifySignatureCompose) returns (PostPubMetaResp);
 }
 
