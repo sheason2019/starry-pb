@@ -59,9 +59,17 @@ message Information {
   string name = 1;
 }
 
+message GetPubMetaResp {
+  repeated IdentifySignatureCompose iscs = 1;
+}
+
+message PostPubMetaResp {}
+
 service StarrySource {
   rpc GetInformation(VoidMessage) returns (Information);
   rpc Connect(stream ConnectMessage) returns (stream ConnectMessage);
+  rpc GetPubMeta(VoidMessage) returns (GetPubMetaResp);
+  rpc PostPubMeta(IdentifySignatureCompose) returns (PostPubMetaResp);
 }
 
 service StarryFederation {
