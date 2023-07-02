@@ -15,7 +15,7 @@ message PubMeta {
   string pub_key_pem = 1;
   string username = 2;
   string avatar_url = 3;
-  int32 created_at = 5;
+  string created_at = 5;
 
   // 私钥字符串，仅在导出Metadata时使用
   string priv_key_pem = 1001;
