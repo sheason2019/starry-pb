@@ -48,8 +48,8 @@ message MessageBox {
 message MessageData {
   string conversation_type = 1;
   string conversation_key = 2;
-  string sender_key = 3;
-  string receiver_key = 4;
+  string sender_key = 3; // sender pub key hash
+  string receiver_key = 4; // receiver pubkey hash
   string message_type = 5; // text image video
   string content = 6;
   string created_at = 7;
