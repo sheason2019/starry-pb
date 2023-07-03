@@ -38,8 +38,8 @@ message ConnectMessage {
 message MessageBox {
   string conversation_type = 1; // 可能是群聊、普通用户、订阅账号等
   string conversation_key = 2;
-  string sender_key = 3;
-  string receiver_key = 4;
+  bytes sender_key = 3;
+  bytes receiver_key = 4;
   bytes data = 5;
   bytes data_sig = 6;
 }
@@ -48,10 +48,10 @@ message MessageBox {
 message MessageData {
   string conversation_type = 1;
   string conversation_key = 2;
-  string sender_key = 3; // sender pub key hash
-  string receiver_key = 4; // receiver pubkey hash
+  bytes sender_key = 3; // sender pub key hash
+  bytes receiver_key = 4; // receiver pubkey hash
   string message_type = 5; // text image video
-  string content = 6;
+  bytes content = 6;
   string created_at = 7;
 }
 
@@ -66,7 +66,7 @@ message GetPubMetaResp {
 message PostPubMetaResp {}
 
 message GetPubMetaByHashReq {
-  repeated string hashList = 1;
+  repeated bytes hashList = 1;
 }
 message GetPubMetaByHashResp {
   repeated IdentifySignatureCompose iscs = 1;
