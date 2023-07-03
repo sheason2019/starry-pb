@@ -9,8 +9,6 @@ option go_package = "./;prototypes";
 // 3. Message 下发
 // 4. TODO: Federation 消息广播
 
-message VoidMessage {}
-
 message PubMeta {
   string pub_key_pem = 1;
   string username = 2;
@@ -55,15 +53,48 @@ message MessageData {
   string created_at = 7;
 }
 
+// 消息状态更新
+message MessageUpdate {
+  MessageUpdateData data = 1; // 更新数据
+  string updated_by = 2; // user or broker
+  bytes data_sig = 3; // user mode create signature for data
+  MessageBrokerLicence broker_licence = 4; // broker mode liscence
+  bytes broker_licence_sig = 5; // broker licence signature for verify
+}
+
+message MessageUpdateData {
+  string action = 1; // receive or checked
+  bytes cipher_message_data_hash = 2; // sha256(box.content)
+}
+
+// Source 的基本信息
 message Information {
   string name = 1;
 }
 
+message MessageBrokerLicence {
+  string created_at = 1;
+  string expire_at = 2;
+  string host = 3;
+}
+
+//
+// RPC 接口 DTO 定义
+//
+message GetInformationReq { }
+message GetInformationResp {
+  Information info = 1;
+}
+
+message GetPubMetaReq { }
 message GetPubMetaResp {
   repeated IdentifySignatureCompose iscs = 1;
 }
 
-message PostPubMetaResp {}
+message PostPubMetaReq {
+  IdentifySignatureCompose isc = 1;
+}
+message PostPubMetaResp { }
 
 message GetPubMetaByHashReq {
   repeated bytes hashList = 1;
@@ -72,14 +103,18 @@ message GetPubMetaByHashResp {
   repeated IdentifySignatureCompose iscs = 1;
 }
 
+message PostMessageReq {
+  MessageBox box = 1;
+}
+message PostMessageResp { }
+
 service StarrySource {
-  rpc GetInformation(VoidMessage) returns (Information);
+  rpc GetInformation(GetInformationReq) returns (GetInformationResp);
   rpc Connect(stream ConnectMessage) returns (stream ConnectMessage);
-  rpc GetPubMeta(VoidMessage) returns (GetPubMetaResp);
+  rpc GetPubMeta(GetPubMetaReq) returns (GetPubMetaResp);
   rpc GetPubMetaByHash(GetPubMetaByHashReq) returns (GetPubMetaByHashResp);
-  rpc PostPubMeta(IdentifySignatureCompose) returns (PostPubMetaResp);
+  rpc PostPubMeta(PostPubMetaReq) returns (PostPubMetaResp);
+  rpc PostMessage(PostMessageReq) returns (PostMessageResp);
 }
 
-service StarryFederation {
-  rpc Join(VoidMessage) returns (VoidMessage);
-}
+service StarryFederation {}
