@@ -97,10 +97,11 @@ message PostPubMetaReq {
 message PostPubMetaResp { }
 
 message GetPubMetaByHashReq {
-  repeated bytes hashList = 1;
+  bytes hashed = 1;
 }
 message GetPubMetaByHashResp {
-  repeated IdentifySignatureCompose iscs = 1;
+  IdentifySignatureCompose isc = 1;
+  bool exist = 2;
 }
 
 message PostMessageReq {
