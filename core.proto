@@ -94,7 +94,9 @@ message GetPubMetaResp {
 message PostPubMetaReq {
   IdentifySignatureCompose isc = 1;
 }
-message PostPubMetaResp { }
+message PostPubMetaResp {
+  IdentifySignatureCompose latest_isc = 1; // 更新的用户数据
+}
 
 message GetPubMetaByHashReq {
   bytes hashed = 1;
