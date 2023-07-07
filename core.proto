@@ -56,15 +56,15 @@ message MessageData {
 // 消息状态更新
 message MessageUpdate {
   MessageUpdateData data = 1; // 更新数据
-  string updated_by = 2; // user or broker
-  bytes data_sig = 3; // user mode create signature for data
-  MessageBrokerLicence broker_licence = 4; // broker mode liscence
-  bytes broker_licence_sig = 5; // broker licence signature for verify
+  bytes data_sig = 2;
+  bytes sender_key = 3;
+  bytes receiver_key = 4;
 }
 
 message MessageUpdateData {
   string action = 1; // receive or checked
-  bytes cipher_message_data_hash = 2; // sha256(box.content)
+  bytes box_data_sig = 2; // box.data_sig
+  string created_at = 3;
 }
 
 // Source 的基本信息
@@ -111,6 +111,11 @@ message PostMessageReq {
 }
 message PostMessageResp { }
 
+message UpdateMessageReq {
+  MessageUpdate mu = 1;
+}
+message UpdateMessageResp {}
+
 service StarrySource {
   rpc GetInformation(GetInformationReq) returns (GetInformationResp);
   rpc Connect(stream ConnectMessage) returns (stream ConnectMessage);
@@ -118,6 +123,7 @@ service StarrySource {
   rpc GetPubMetaByHash(GetPubMetaByHashReq) returns (GetPubMetaByHashResp);
   rpc PostPubMeta(PostPubMetaReq) returns (PostPubMetaResp);
   rpc PostMessage(PostMessageReq) returns (PostMessageResp);
+  rpc UpdateMessage(UpdateMessageReq) returns (UpdateMessageResp);
 }
 
 service StarryFederation {}
