@@ -35,36 +35,38 @@ message ConnectMessage {
 // 包裹消息的盒子，用来帮助服务端判断消息的收发者
 message MessageBox {
   string conversation_type = 1; // 可能是群聊、普通用户、订阅账号等
-  string conversation_key = 2;
+  bytes conversation_key = 2;
   bytes sender_key = 3;
-  bytes receiver_key = 4;
-  bytes data = 5;
-  bytes data_sig = 6;
+  bytes data = 4;
+  bytes data_sig = 5;
 }
 
 // 消息的实际内容
 message MessageData {
-  string conversation_type = 1;
-  string conversation_key = 2;
+  string conversation_type = 1; // private
+  bytes conversation_key = 2; // pubmeta hash
   bytes sender_key = 3; // sender pub key hash
-  bytes receiver_key = 4; // receiver pubkey hash
-  string message_type = 5; // text image video
-  bytes content = 6;
-  string created_at = 7;
+  string message_type = 4; // text image video
+  bytes content = 5;
+  string created_at = 6;
 }
 
 // 消息状态更新
 message MessageUpdateBox {
-  MessageUpdateData data = 1; // 更新数据
-  bytes data_sig = 2;
+  string conversation_type = 1;
+  bytes conversation_key = 2;
   bytes sender_key = 3;
-  bytes receiver_key = 4;
+  bytes data = 4; // 更新数据s
+  bytes data_sig = 5;
 }
 
 message MessageUpdateData {
-  string action = 1; // receive or checked
-  bytes box_data_sig = 2; // box.data_sig
-  string created_at = 3;
+  string conversation_type = 1;
+  bytes conversation_key = 2;
+  bytes sender_key = 3;
+  string action = 4; // receive or checked
+  bytes message_data_hash =5;
+  string created_at = 6;
 }
 
 // Source 的基本信息
