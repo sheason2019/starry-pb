@@ -54,7 +54,7 @@ message MessageData {
 }
 
 // 消息状态更新
-message MessageUpdate {
+message MessageUpdateBox {
   MessageUpdateData data = 1; // 更新数据
   bytes data_sig = 2;
   bytes sender_key = 3;
@@ -112,7 +112,7 @@ message PostMessageReq {
 message PostMessageResp { }
 
 message UpdateMessageReq {
-  MessageUpdate mu = 1;
+  MessageUpdateBox mub = 1;
 }
 message UpdateMessageResp {}
 
